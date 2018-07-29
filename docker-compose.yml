@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  tasklist:
+    image: ${DOCKER_REGISTRY}tasklist
+    build:
+      context: .
+      dockerfile: TaskList/Dockerfile
