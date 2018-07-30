@@ -1,0 +1,42 @@
+﻿@model System.Collections.Generic.List<TaskList.Domain.Task>
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<form asp-action="Create" method="post">
+    <div class="input-group ">
+        <input type="text" class="form-control" name="Description">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+    </div>
+</form>
+
+
+<ul class="list-group mt-4">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+            @if (item.IsComplete)
+            {
+                <span class="text-success"><s>@item.Description</s></span>
+            }
+            else
+            {
+                @item.Description
+            }
+
+            <div class="float-right">
+                @if (item.IsComplete)
+                {
+                    <a asp-action="MarkAsIncomplete" asp-route-id="@item.Id" class="btn btn-success">Mark as Incomplete</a>
+                }
+                else
+                {
+                    <a asp-action="MarkAsComplete" asp-route-id="@item.Id" class="btn btn-success">Mark as Complete</a>
+                }
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </div>
+        </li>
+    }
+</ul>
