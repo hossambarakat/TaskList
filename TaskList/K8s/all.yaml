@@ -1,9 +1,12 @@
-﻿apiVersion: extensions/v1beta1
+﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tasks-app-deployment
 spec:
   replicas: 3
+  selector:
+      matchLabels:
+        app: tasks-app
   template:
     metadata:
       labels:
@@ -15,4 +18,3 @@ spec:
         name:  tasks-app
         ports:
         - containerPort:  80
-          name: tasks-app
