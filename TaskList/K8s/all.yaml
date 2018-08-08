@@ -17,12 +17,15 @@ spec:
     requests:
       storage: 8Gi
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mssql-deployment
 spec:
   replicas: 1
+  selector:
+      matchLabels:
+        app: mssql
   template:
     metadata:
       labels:
@@ -64,22 +67,26 @@ spec:
       targetPort: 1433
   type: NodePort
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tasks-app-deployment
 spec:
+  replicas: 3
+  selector:
+      matchLabels:
+        app: tasks-app
   template:
     metadata:
       labels:
-        app:  tasks
+        app: tasks-app
     spec:
       containers:
       - image: hossambarakat/tasklist
         imagePullPolicy: IfNotPresent
-        name:  tasks-app
+        name: tasks-app
         ports:
-        - containerPort:  80
+        - containerPort: 80
           name: tasks-app
         env:
         - name: ConnectionStrings__DefaultConnection
@@ -88,12 +95,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name:  tasks-app-svc
+  name: tasks-app-svc
 spec:
   selector:
-    app:  tasks
-  type:  LoadBalancer
+    app: tasks-app
+  type: LoadBalancer
   ports:
-  - name:  tasks-app
-    port:  8099
-    targetPort:  80
+  - port: 8099
+    targetPort: 80
