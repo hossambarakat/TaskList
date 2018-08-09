@@ -1,4 +1,4 @@
-﻿apiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tasks-app-deployment
@@ -15,6 +15,6 @@ spec:
       containers:
       - image: hossambarakat/tasklist
         imagePullPolicy: IfNotPresent
-        name:  tasks-app
+        name: tasks-app
         ports:
         - containerPort:  80

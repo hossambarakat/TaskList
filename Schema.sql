@@ -1,4 +1,12 @@
-﻿IF NOT EXISTS (SELECT * FROM sysobjects WHERE NAME='Task' AND XTYPE='U')
+﻿USE master
+GO
+IF(db_id(N'Tasks') IS NULL)
+BEGIN
+	CREATE DATABASE Tasks
+END;
+GO
+USE Tasks
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE NAME='Task' AND XTYPE='U')
 BEGIN
 	CREATE TABLE Task
 	(
