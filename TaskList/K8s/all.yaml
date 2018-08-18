@@ -15,5 +15,6 @@ spec:
       containers:
       - name: tasks-app
         image: hossambarakat/tasklist
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
