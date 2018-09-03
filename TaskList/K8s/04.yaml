@@ -1,22 +1,3 @@
-﻿kind: Secret
-apiVersion: v1
-metadata:
-  name:  mssql
-data:
-   SA_PASSWORD: UEBzc3cwcmQ=
-type: generic
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: mssql-data
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 8Gi
----
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -38,9 +19,6 @@ spec:
         ports:
         - containerPort: 80
           name: tasks-app
-        env:
-        - name: ConnectionStrings__DefaultConnection
-          value: "Server=mssql-service;Database=Tasks;uid=sa;pwd=P@ssw0rd;MultipleActiveResultSets=true"
 ---
 kind: Service
 apiVersion: v1
@@ -49,7 +27,7 @@ metadata:
 spec:
   selector:
     app: tasks-app
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 8099
     targetPort: 80
@@ -79,17 +57,7 @@ spec:
         - name: ACCEPT_EULA
           value: "Y"
         - name: SA_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mssql
-              key: SA_PASSWORD
-        volumeMounts:
-        - name: mssqldb
-          mountPath: /var/opt/mssql
-      volumes:
-      - name: mssqldb
-        persistentVolumeClaim:
-          claimName: mssql-data
+          value: "P@ssw0rd"
 ---
 kind: Service
 apiVersion: v1

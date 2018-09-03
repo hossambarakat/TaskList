@@ -1,0 +1,20 @@
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  name: tasks-app-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tasks-app
+  template:
+    metadata:
+      labels:
+        app: tasks-app
+    spec:
+      containers:
+      - name: tasks-app
+        image: hossambarakat/tasklist
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80

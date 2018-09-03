@@ -1,16 +1,9 @@
-﻿kind: Secret
-apiVersion: v1
-metadata:
-  name:  mssql
-data:
-   SA_PASSWORD: UEBzc3cwcmQ=
-type: generic
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: mssql-data
 spec:
+  storageClassName: hostpath
   accessModes:
     - ReadWriteOnce
   resources:
@@ -79,10 +72,7 @@ spec:
         - name: ACCEPT_EULA
           value: "Y"
         - name: SA_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mssql
-              key: SA_PASSWORD
+          value: "P@ssw0rd"
         volumeMounts:
         - name: mssqldb
           mountPath: /var/opt/mssql
