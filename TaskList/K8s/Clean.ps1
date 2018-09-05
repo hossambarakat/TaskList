@@ -5,3 +5,4 @@ kubectl delete deployment mssql-deployment --ignore-not-found=true
 kubectl delete ReplicaSet tasks-app-rs --ignore-not-found=true
 kubectl delete pod tasks-app --ignore-not-found=true
 kubectl delete pvc,pv --all --ignore-not-found=true
+kubectl delete secret mssql --ignore-not-found=true
