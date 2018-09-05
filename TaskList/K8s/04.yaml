@@ -19,6 +19,9 @@ spec:
         ports:
         - containerPort: 80
           name: tasks-app
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=mssql-service;Database=Tasks;uid=sa;pwd=P@ssw0rd;MultipleActiveResultSets=true"
 ---
 kind: Service
 apiVersion: v1
