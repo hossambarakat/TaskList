@@ -6,3 +6,15 @@ services:
     build:
       context: .
       dockerfile: TaskList/Dockerfile
+    depends_on: 
+      - tasklist-db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=tasklist-db;Database=Tasks;uid=sa;pwd=P@ssw0rd;MultipleActiveResultSets=true
+
+  tasklist-db:
+    image: microsoft/mssql-server-linux
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0rd
