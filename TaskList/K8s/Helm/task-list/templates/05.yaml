@@ -17,11 +17,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
       matchLabels:
-        app: tasks-app
+        app: {{ .Release.Name }}-tasks-app
   template:
     metadata:
       labels:
-        app: tasks-app
+        app: {{ .Release.Name }}-tasks-app
     spec:
       containers:
       - image: hossambarakat/tasklist
@@ -40,7 +40,7 @@ metadata:
   name: {{ .Release.Name }}-tasks-app-svc
 spec:
   selector:
-    app: tasks-app
+    app: {{ .Release.Name }}-tasks-app
   type: LoadBalancer
   ports:
   - port: {{ .Values.service.port }}
@@ -54,11 +54,11 @@ spec:
   replicas: 1
   selector:
       matchLabels:
-        app: mssql
+        app: {{ .Release.Name }}-mssql
   template:
     metadata:
       labels:
-        app: mssql
+        app: {{ .Release.Name }}-mssql
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -86,7 +86,7 @@ metadata:
   name: {{ .Release.Name }}-mssql-service
 spec:
   selector:
-    app: mssql
+    app: {{ .Release.Name }}-mssql
   ports:
     - protocol: TCP
       port: 1433
