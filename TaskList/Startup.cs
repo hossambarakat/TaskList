@@ -53,6 +53,7 @@ namespace TaskList
                 app.UseHsts();
             }
 
+            app.UsePathBase("/tasks-app");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

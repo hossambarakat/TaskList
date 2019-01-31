@@ -14,7 +14,7 @@ apiVersion: apps/v1
 metadata:
   name: tasks-app-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
       matchLabels:
         app: tasks-app
@@ -24,8 +24,8 @@ spec:
         app: tasks-app
     spec:
       containers:
-      - image: hossambarakat/tasklist
-        imagePullPolicy: IfNotPresent
+      - image: hossambarakat/tasklist:basepath
+        imagePullPolicy: Always
         name: tasks-app
         ports:
         - containerPort: 80
@@ -87,8 +87,8 @@ metadata:
 spec:
   selector:
     app: mssql
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 1433
       targetPort: 1433
-  type: NodePort
