@@ -63,7 +63,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: mssql
-        image: microsoft/mssql-server-linux
+        image: mcr.microsoft.com/mssql/server:2017-latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 1433
@@ -72,6 +72,8 @@ spec:
           value: "Y"
         - name: SA_PASSWORD
           value: "P@ssw0rd"
+        - name: MSSQL_PID
+          value: "Express"
         volumeMounts:
         - name: mssqldb
           mountPath: /var/opt/mssql
@@ -91,4 +93,4 @@ spec:
     - protocol: TCP
       port: 1433
       targetPort: 1433
-  type: NodePort
+  type: LoadBalancer

@@ -1,5 +1,7 @@
+## Install-Module -Name SqlServer
+
 param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory=$false)]
     [string]
     $Server = "localhost"
 )
@@ -29,13 +31,13 @@ $isLive = $false
 
 while(!$isLive) {
 
-    $isLive = Test-SqlConnection -server "localhost"
+    $isLive = Test-SqlConnection -server $Server
     Start-Sleep -Milliseconds 200
     Write-Progress -Activity "Waiting for database"
 }
 
 Write-Progress "Creating Schema"
 
-Invoke-Sqlcmd -ConnectionString $connectionString -InputFile "$PSScriptRoot\schema.sql"
+Invoke-Sqlcmd -ConnectionString $connectionString -InputFile "$PSScriptRoot/schema.sql"
 
 Write-Progress "Completed"
