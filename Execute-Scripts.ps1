@@ -7,19 +7,20 @@ param(
 )
 $connectionString = "server=$Server;uid=sa;pwd=P@ssw0rd;Initial Catalog=master;Connect Timeout=3;"
 function Test-SqlConnection{
-	$sqlConnection = New-Object System.Data.SqlClient.SqlConnection
+    $sqlConnection = New-Object System.Data.SqlClient.SqlConnection
     $sqlConnection.ConnectionString =  $connectionString
     $isSuccess = $false
-	try
-	{
-	    $sqlConnection.Open()
+    try
+    {
+        $sqlConnection.Open()
         if ($sqlConnection.State -eq 'Open')
-	    {
-	        $isSuccess = $true
-	    }
-	}
+        {
+            $isSuccess = $true
+        }
+    }
     catch {
         $isSuccess = $false
+        Write-Host $error
     }
     finally {
         $sqlConnection.Close();
