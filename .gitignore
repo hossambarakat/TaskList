@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 /TaskList/wwwroot/js/site.min.js
 /TaskList/wwwroot/css/site.min.css
+
+*.DS_Store
